@@ -52,8 +52,5 @@ jobs:
         run: dotnet pack Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj --configuration Release --no-build -o out
 
       - name: Push to NuGet
-        uses: rohith/publish-nuget@v2
-        with:
-          PROJECT_FILE_PATH: Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}} # Set this in your repository's secrets
-          PACKAGE_DIRECTORY: 'out'
+        run: |
+          dotnet nuget push out/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate --no-symbols
