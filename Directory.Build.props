@@ -3,7 +3,7 @@
         <Nullable>enable</Nullable>
         <AvaloniaVersion>11.0.0</AvaloniaVersion>
         <AbpVersion>7.3.1</AbpVersion>
-        <Version>0.0.1-alpha14</Version>
+        <Version>0.0.1-alpha15</Version>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
 </Project>
