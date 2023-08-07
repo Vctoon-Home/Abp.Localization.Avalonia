@@ -56,4 +56,4 @@ jobs:
         with:
           PROJECT_FILE_PATH: Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj
           NUGET_KEY: ${{secrets.NUGET_API_KEY}} # Set this in your repository's secrets
-          PACKAGE_DIRECTORY: './out'
+          PACKAGE_DIRECTORY: 'out'
