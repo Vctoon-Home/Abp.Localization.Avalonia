@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+
+        <PackageId>Zyknow.Abp.Localization.Avalonia</PackageId>
+        <Authors>Zyknow</Authors>
+        <IncludeContentInPack>true</IncludeContentInPack>
+        <IncludeBuildOutput>true</IncludeBuildOutput>
+        <NoDefaultExcludes>true</NoDefaultExcludes>
+        <RepositoryType>git</RepositoryType>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/zyknow/Abp.Localization.Avalonia</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/zyknow/Abp.Localization.Avalonia</RepositoryUrl>
+<!--        <PackageReadmeFile>..\README.md</PackageReadmeFile>-->
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="7.0.0"/>
+        <PackageReference Include="System.Reactive" Version="6.0.0"/>
+        <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Localization" Version="$(AbpVersion)"/>
+    </ItemGroup>
+</Project>

@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:AvaloniaDemo.ViewModels"
+             xmlns:L="clr-namespace:Abp.Localization.Avalonia;assembly=Abp.Localization.Avalonia"
+             xmlns:com="clr-namespace:AvaloniaDemo.Components;assembly=AvaloniaDemo"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="AvaloniaDemo.Views.MainView"
+             x:DataType="vm:MainViewModel">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+
+        <com:LanguageSelect></com:LanguageSelect>
+
+
+        <TextBlock FontSize="30" Text="{Binding Greeting}" />
+
+        <TextBlock FontSize="20" Text="{Binding SaveText}"></TextBlock>
+
+        <TextBlock FontSize="20" Text="{L:Localized Submit}"></TextBlock>
+        
+        <TextBlock FontSize="20" Text="{L:Localized Welcome}"></TextBlock>
+
+    </StackPanel>
+
+</UserControl>
