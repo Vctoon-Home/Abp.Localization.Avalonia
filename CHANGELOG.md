@@ -1,3 +1,5 @@
+## [1.2.1](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.2.0...v1.2.1) (2023-08-08)
+
 # [1.2.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.1.0...v1.2.0) (2023-08-08)
 
 
