@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.1.0...v1.2.0) (2023-08-08)
+
+
+### Features
+
+* update dotnet.yml ([2a576f2](https://github.com/zyknow/Abp.Localization.Avalonia/commit/2a576f26e5a9a8055ebd36d917d521b9cdc086ff))
+
 # [1.1.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.0.0...v1.1.0) (2023-08-08)
 
 
