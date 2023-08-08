@@ -18,7 +18,7 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
 
 1. Add Package Reference
     ```xml
-    <PackageReference Include="Zyknow.Abp.Localization.Avalonia" Version="0.0.1-alpha9" />
+    <PackageReference Include="Zyknow.Abp.Localization.Avalonia" Version="1.2.2" />
     ```
 
 2. Add DependsOn and LocalizationManager
