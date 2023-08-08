@@ -29,6 +29,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npx semantic-release
+      - name: Get new version
+        id: get_version
+        run: echo "::set-output name=version::$(jq -r ".version" package.json)"
+      
+    outputs:
+      new_version: ${{ steps.get_version.outputs.version }}
   
   build_nuget:
     needs: release
@@ -58,7 +64,7 @@ jobs:
       - name: Update version
         run: |
           # Extract version from package.json
-          VERSION=$(jq -r ".version" package.json)
+          VERSION=${{ needs.release.outputs.new_version }}
 
           # Update Directory.Build.props with the extracted version
           sed -i "s|<Version>.*</Version>|<Version>$VERSION</Version>|" Directory.Build.props
@@ -106,7 +112,7 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
           
           # Get the tag by parsing package.json
-          TAG=v$(jq -r ".version" package.json)
+          TAG=v${{ needs.release.outputs.new_version }}
           
           # Upload each .nupkg file in the out directory to the existing release
           for file in out/*.nupkg; do
