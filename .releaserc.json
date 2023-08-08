@@ -1,6 +1,9 @@
 {
   "branches": [
-    "preview",
+    {
+      "name": "preview",
+      "prerelease": true
+    },
     "main"
   ],
   "plugins": [
