@@ -2,55 +2,56 @@ name: dotnet
 on:
   push:
     branches:
-      - develop
+      - preview
+      - main
 
 jobs:
-#  release:
-#    name: Release
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: write # to be able to publish a GitHub release
-#      issues: write # to be able to comment on released issues
-#      pull-requests: write # to be able to comment on released pull requests
-#      id-token: write # to enable use of OIDC for npm provenance
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v3
-#        with:
-#          fetch-depth: 0
-#      - name: Setup Node.js
-#        uses: actions/setup-node@v3
-#        with:
-#          node-version: "lts/*"
-#      - name: Install dependencies
-#        run: yarn install --frozen-lockfile
-#      - name: Release
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#        run: npx semantic-release
-  
-  build_nuget:
-#    needs: release
-    name: Build NuGet
+  release:
+    name: Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          dotnet-version: '7.0.x' # Adjust this to your project's .NET version
-
-      - name: Restore dependencies
-        run: dotnet restore Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj
-
-      - name: Build
-        run: dotnet build Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj --configuration Release --no-restore
-
-      - name: Publish NuGet package
-        run: dotnet pack Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj --configuration Release --no-build -o out
-
-      - name: Push to NuGet
-        run: |
-          dotnet nuget push out/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate --no-symbols
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+  
+#  build_nuget:
+##    needs: release
+#    name: Build NuGet
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v2
+#
+#      - name: Setup .NET Core
+#        uses: actions/setup-dotnet@v1
+#        with:
+#          dotnet-version: '7.0.x' # Adjust this to your project's .NET version
+#
+#      - name: Restore dependencies
+#        run: dotnet restore Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj
+#
+#      - name: Build
+#        run: dotnet build Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj --configuration Release --no-restore
+#
+#      - name: Publish NuGet package
+#        run: dotnet pack Abp.Localization.Avalonia/Abp.Localization.Avalonia.csproj --configuration Release --no-build -o out
+#
+#      - name: Push to NuGet
+#        run: |
+#          dotnet nuget push out/*.nupkg -s https://api.nuget.org/v3/index.json -k ${{secrets.NUGET_API_KEY}} --skip-duplicate --no-symbols
