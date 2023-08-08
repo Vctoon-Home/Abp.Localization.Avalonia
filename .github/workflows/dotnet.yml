@@ -106,7 +106,7 @@ jobs:
           echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
           
           # Get the tag by parsing package.json
-          TAG=$(jq -r ".version" package.json)
+          TAG=v$(jq -r ".version" package.json)
           
           # Upload each .nupkg file in the out directory to the existing release
           for file in out/*.nupkg; do
