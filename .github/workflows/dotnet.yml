@@ -79,6 +79,9 @@ jobs:
             # Commit changes
             git commit -m "chore: update Directory.Build.props version"
           
+            # Pull the latest changes from the remote branch with rebase
+            git pull --rebase origin ${{ github.ref }}
+          
             # Push changes to the repository
             git push origin HEAD:${{ github.ref }}
           fi
