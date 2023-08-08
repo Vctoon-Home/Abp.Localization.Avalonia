@@ -1,6 +1,6 @@
 {
   "name": "abp.localization.avalonia",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://mit-license.org/)\r [![GitHub Stars](https://img.shields.io/github/stars/zyknow/Abp.Localization.Avalonia.svg)](https://github.com/zyknow/Abp.Localization.Avalonia/stargazers)\r [![GitHub Issues](https://img.shields.io/github/issues/zyknow/Abp.Localization.Avalonia.svg)](https://github.com/zyknow/Abp.Localization.Avalonia/issues)",
   "main": "index.js",
   "repository": {
