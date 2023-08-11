@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.2.2...v1.3.0) (2023-08-11)
+
+
+### Features
+
+* Update avalonia version to 11.0.3 ([9fdc650](https://github.com/zyknow/Abp.Localization.Avalonia/commit/9fdc6509be8e3c68937423a833227fa9b22cd878))
+
 ## [1.2.2](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.2.1...v1.2.2) (2023-08-08)
 
 ## [1.2.1](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.2.0...v1.2.1) (2023-08-08)
