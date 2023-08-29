@@ -42,7 +42,7 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
     * Add xmlns
 
        ```xml
-       xmlns:L="clr-namespace:Zyknow.Abp.Localization.Avalonia;assembly=Zyknow.Abp.Localization.Avalonia"
+       xmlns:L="clr-namespace:Abp.Localization.Avalonia;assembly=Abp.Localization.Avalonia"
        ```
     * use
        ```xml
