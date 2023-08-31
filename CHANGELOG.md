@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.4.0...v1.5.0) (2023-08-31)
+
+
+### Features
+
+* support GetResourceLocalizer ([bf0fef0](https://github.com/zyknow/Abp.Localization.Avalonia/commit/bf0fef0f53cd3422eff4ebe1b425392ad8900382))
+
 # [1.4.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.3.0...v1.4.0) (2023-08-20)
 
 
