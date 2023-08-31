@@ -1,9 +1,9 @@
 <Project>
     <PropertyGroup>
         <Nullable>enable</Nullable>
-        <AvaloniaVersion>11.0.2</AvaloniaVersion>
+        <AvaloniaVersion>11.0.4</AvaloniaVersion>
         <AbpVersion>7.3.2</AbpVersion>
         <LangVersion>latest</LangVersion>
-        <Version>1.2.2</Version>
+        <Version>1.4.0</Version>
     </PropertyGroup>
 </Project>
