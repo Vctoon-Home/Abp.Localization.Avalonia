@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Globalization;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using Volo.Abp.DependencyInjection;
 
@@ -38,6 +39,30 @@ public class LocalizationManager : INotifyPropertyChanged, ISingletonDependency
         CultureInfo.CurrentUICulture = cultureInfo;
         CurrentCulture = cultureInfo;
     }
+
+
+    private Dictionary<Type, IStringLocalizer> _localizers = new();
+
+    object _lock = new();
+
+    public IStringLocalizer GetResourceLocalizer<T>()
+    {
+        lock (_lock)
+        {
+            if (_localizers.ContainsKey(typeof(T)))
+            {
+                return _localizers[typeof(T)];
+            }
+            else
+            {
+                var localizer = LocalizationExtensions.Services.GetRequiredService<IStringLocalizerFactory>()
+                    .Create(typeof(T));
+                _localizers.Add(typeof(T), localizer);
+                return localizer;
+            }
+        }
+    }
+
 
     public LocalizedString GetValue(string resourceKey)
     {
