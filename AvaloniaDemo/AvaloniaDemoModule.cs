@@ -3,8 +3,10 @@ using AvaloniaDemo.Localization;
 using Localization.Resources.AbpUi;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Volo.Abp.Account.Localization;
 using Volo.Abp.Autofac;
 using Volo.Abp.Http.Client.IdentityModel;
+using Volo.Abp.Identity.Localization;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
@@ -61,6 +63,8 @@ public class AvaloniaDemoModule : AbpModule
                 .Add<AvaloniaDemoResource>("en")
                 .AddBaseTypes(typeof(AbpValidationResource))
                 .AddBaseTypes(typeof(AbpUiResource))
+                .AddBaseTypes(typeof(AccountResource))
+                .AddBaseTypes(typeof(IdentityResource))
                 .AddVirtualJson("/Localization/AvaloniaDemo");
 
             options.DefaultResourceType = typeof(AvaloniaDemoResource);
