@@ -15,6 +15,7 @@ public class MainWindowViewModel : ViewModelBase, ITransientDependency
             this.RaisePropertyChanged(nameof(SaveText));
             this.RaisePropertyChanged(nameof(Greeting));
             this.RaisePropertyChanged(nameof(IdentityName));
+            this.RaisePropertyChanged(nameof(UserDeletionConfirmationMessage));
         };
     }
 
