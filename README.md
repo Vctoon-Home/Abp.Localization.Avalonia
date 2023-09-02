@@ -24,6 +24,7 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
 2. Add DependsOn and LocalizationManager
 
     ```csharp
+   // DependsOn(typeof(AbpLocalizationAvaloniaModule)) is not required 
    [DependsOn(typeof(AbpLocalizationAvaloniaModule))]
    public class YourModule : AbpModule
    {
@@ -31,8 +32,7 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
        {
            var services = context.Services;
            // AvaloniaDemoResource is the resource
-           services.AddLocalizationManager(s => s.GetRequiredService<IStringLocalizerFactory>()
-           .Create(typeof(AvaloniaDemoResource)));
+           services.AddLocalizationManager();
        }
    }
     ```
@@ -44,7 +44,7 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
        ```xml
        xmlns:L="clr-namespace:Abp.Localization.Avalonia;assembly=Abp.Localization.Avalonia"
        ```
-    * use
+    * use, more simple please see `AvaloniaDemo`
        ```xml
        <TextBlock FontSize="20" Text="{L:Localized Welcome}"></TextBlock>
        ```
@@ -67,6 +67,9 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
 ## Author
 
 [Zyknow](https://github.com/zyknow)
+
+## Credits
+[LocalizationManager.Avalonia](https://github.com/MicroSugarDeveloperOrg/LocalizationManager.Avalonia)
 
 ## License
 

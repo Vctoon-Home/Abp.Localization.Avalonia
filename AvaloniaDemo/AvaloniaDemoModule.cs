@@ -3,8 +3,12 @@ using AvaloniaDemo.Localization;
 using Localization.Resources.AbpUi;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Volo.Abp.Account;
+using Volo.Abp.Account.Localization;
 using Volo.Abp.Autofac;
 using Volo.Abp.Http.Client.IdentityModel;
+using Volo.Abp.Identity;
+using Volo.Abp.Identity.Localization;
 using Volo.Abp.Localization;
 using Volo.Abp.Localization.ExceptionHandling;
 using Volo.Abp.Modularity;
@@ -13,8 +17,11 @@ using Volo.Abp.Validation.Localization;
 using Volo.Abp.VirtualFileSystem;
 
 namespace AvaloniaDemo;
+
 [DependsOn(
     typeof(AbpAutofacModule),
+    typeof(AbpAccountHttpApiClientModule),
+    typeof(AbpIdentityHttpApiClientModule),
     typeof(AbpHttpClientIdentityModelModule),
     typeof(AbpUiModule),
     typeof(AbpVirtualFileSystemModule),
@@ -25,12 +32,10 @@ public class AvaloniaDemoModule : AbpModule
     public override void ConfigureServices(ServiceConfigurationContext context)
     {
         var services = context.Services;
-
-
-        services.AddLocalizationManager(s => s.GetRequiredService<IStringLocalizerFactory>()
-            .Create(typeof(AvaloniaDemoResource)));
-
         ConfigureLocalization();
+
+        // add in avalonia demo
+        services.AddLocalizationManager();
     }
 
     private void ConfigureLocalization()
@@ -64,11 +69,6 @@ public class AvaloniaDemoModule : AbpModule
                 .AddVirtualJson("/Localization/AvaloniaDemo");
 
             options.DefaultResourceType = typeof(AvaloniaDemoResource);
-        });
-
-        Configure<AbpExceptionLocalizationOptions>(options =>
-        {
-            options.MapCodeNamespace("AvaloniaDemo", typeof(AvaloniaDemoResource));
         });
     }
 }

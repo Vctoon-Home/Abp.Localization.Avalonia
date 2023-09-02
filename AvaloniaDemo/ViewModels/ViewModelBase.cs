@@ -7,5 +7,5 @@ namespace AvaloniaDemo.ViewModels;
 public class ViewModelBase : ReactiveObject
 {
     public IAbpLazyServiceProvider? LazyServiceProvider { get; set; }
-    public LocalizationManager L => LazyServiceProvider?.LazyGetRequiredService<LocalizationManager>()!;
+    public ILocalizationManager L => LazyServiceProvider?.LazyGetRequiredService<LocalizationManager>()!;
 }
