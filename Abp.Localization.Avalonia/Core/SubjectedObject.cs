@@ -1,6 +1,7 @@
 ﻿using System.Reactive.Disposables;
 using System.Reactive.Subjects;
 using Avalonia;
+using Avalonia.Data;
 
 namespace Abp.Localization.Avalonia.Core;
 

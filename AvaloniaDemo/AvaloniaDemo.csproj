@@ -1,7 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <!--If you are willing to use Windows/MacOS native APIs you will need to create 3 projects.
+        One for Windows with net7.0-windows TFM, one for MacOS with net7.0-macos and one with net7.0 TFM for Linux.-->
         <TargetFramework>net7.0</TargetFramework>
         <Nullable>enable</Nullable>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
         <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
     </PropertyGroup>
 
@@ -17,11 +22,11 @@
         <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)"/>
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
         <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)"/>
-        <PackageReference Include="Volo.Abp.Account.Application.Contracts" Version="7.3.2" />
-
+        <PackageReference Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+        <PackageReference Include="Volo.Abp.Account.HttpApi.Client" Version="$(AbpVersion)" />
         <PackageReference Include="Volo.Abp.Http.Client.IdentityModel" Version="$(AbpVersion)"/>
+        <PackageReference Include="Volo.Abp.Identity.HttpApi.Client" Version="$(AbpVersion)" />
 
-        <PackageReference Include="Volo.Abp.Identity.Application.Contracts" Version="7.3.2" />
         <PackageReference Include="Volo.Abp.UI" Version="$(AbpVersion)"/>
         <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.0" />
     </ItemGroup>

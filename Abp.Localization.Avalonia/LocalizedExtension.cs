@@ -4,6 +4,8 @@ using Abp.Localization.Avalonia.Core;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Metadata;
+using Microsoft.Extensions.Localization;
+using Volo.Abp.Localization;
 
 namespace Abp.Localization.Avalonia;
 
@@ -33,11 +35,24 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
         Text = text;
     }
 
+    public LocalizedExtension(string text, string resource) : base(string.Empty)
+    {
+        Text = text;
+        Resource = resource;
+    }
+    //
+    // public LocalizedExtension(string text, string resource, params object[] arguments) : base(string.Empty)
+    // {
+    //     Text = text;
+    //     Resource = resource;
+    //     Arguments = arguments;
+    // }
+
     public static readonly StyledProperty<string> TextProperty =
         AvaloniaProperty.Register<LocalizedExtension, string>(nameof(Text));
 
-    // public static readonly StyledProperty<string?> CategoryProperty =
-    //     AvaloniaProperty.Register<LocalizedBinding, string?>(nameof(Category));
+    public static readonly StyledProperty<string?> CategoryProperty =
+        AvaloniaProperty.Register<LocalizedExtension, string?>(nameof(Resource));
 
     public static readonly StyledProperty<object[]?> ArgumentsProperty =
         AvaloniaProperty.Register<LocalizedExtension, object[]?>(nameof(Arguments));
@@ -50,11 +65,11 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
         set => SetValue(TextProperty, value);
     }
 
-    // public string? Category
-    // {
-    //     get => GetValue(CategoryProperty);
-    //     set => SetValue(CategoryProperty, value);
-    // }
+    public string? Resource
+    {
+        get => GetValue(CategoryProperty);
+        set => SetValue(CategoryProperty, value);
+    }
 
     public object[]? Arguments
     {
@@ -62,21 +77,22 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
         set => SetValue(ArgumentsProperty, value);
     }
 
-    private LocalizationManager? _localizationManager;
+    private ILocalizationManager? _localizationManager;
     private IBinding bindingImplementation;
+    private IBinding _bindingImplementation;
 
-    protected LocalizationManager? LocalizationManager
+    protected ILocalizationManager? LocalizationManager
     {
         get => _localizationManager;
         set
         {
             if (_localizationManager is not null)
-                _localizationManager.PropertyChanged -= LanguageChanged;
+                _localizationManager.CurrentCultureChanged -= LanguageChanged;
 
             _localizationManager = value;
 
             if (_localizationManager is not null)
-                _localizationManager.PropertyChanged += LanguageChanged;
+                _localizationManager.CurrentCultureChanged += LanguageChanged;
         }
     }
 
@@ -100,25 +116,35 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
         ;
     }
 
+
     void LanguageChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (sender is not LocalizationManager localizationManager)
+        if (sender is not ILocalizationManager localizationManager)
             return;
         SetLanguageValue(localizationManager);
     }
 
-    void SetLanguageValue(LocalizationManager localizationManager)
+    void SetLanguageValue(ILocalizationManager localizationManager)
     {
+        IStringLocalizer stringLocalizer = null;
+
         if (localizationManager is null)
             return;
-        //
-        // if (Arguments is not null && !string.IsNullOrWhiteSpace(Category))
-        //     OnNext(localizationManager[Text, Category!, Arguments]);
-        // else if (Arguments is not null)
-        //     OnNext(localizationManager[Text, Arguments]);
-        // else if (!string.IsNullOrWhiteSpace(Category))
-        //     OnNext(localizationManager[Text, Category!]);
-        // else
-        OnNext(localizationManager[Text]);
+
+        if (!Resource.IsNullOrEmpty())
+        {
+            stringLocalizer = localizationManager.GetResource(Resource);
+            if (Arguments is not null)
+                OnNext(stringLocalizer[Text, Arguments]);
+            else
+                OnNext(stringLocalizer[Text]);
+        }
+        else
+        {
+            if (Arguments is not null)
+                OnNext(localizationManager[Text, Arguments]);
+            else
+                OnNext(localizationManager[Text]);
+        }
     }
 }

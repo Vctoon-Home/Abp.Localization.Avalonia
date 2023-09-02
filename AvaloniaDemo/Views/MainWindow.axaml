@@ -4,8 +4,30 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:AvaloniaDemo.Views"
+        xmlns:components="clr-namespace:AvaloniaDemo.Components"
+        xmlns:L="clr-namespace:Abp.Localization.Avalonia;assembly=Abp.Localization.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaDemo.Views.MainWindow"
-        Icon="/Assets/avalonia-logo.ico"
+        x:DataType="vm:MainWindowViewModel"
         Title="AvaloniaDemo">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="20">
+
+        <components:LanguageSelect></components:LanguageSelect>
+
+        <TextBlock FontSize="30" Text="{Binding Greeting}" />
+
+        <TextBlock FontSize="20" Text="{Binding SaveText}"></TextBlock>
+
+
+        <TextBlock FontSize="20" Text="{L:Localized Submit}"></TextBlock>
+
+        <TextBlock FontSize="20" Text="{L:Localized UserName,AbpAccount}"></TextBlock>
+        <TextBlock FontSize="20" Text="{Binding DisplayName}"></TextBlock>
+
+        <TextBlock FontSize="20" Text="{Binding IdentityName}"></TextBlock>
+        <TextBlock FontSize="20" Text="{Binding UserDeletionConfirmationMessage}"></TextBlock>
+        <TextBlock FontSize="20" Text="{L:Localized Volo.Abp.Identity:UserNameNotFound,AbpIdentity,test}"></TextBlock>
+
+    </StackPanel>
+
 </Window>

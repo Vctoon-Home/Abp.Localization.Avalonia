@@ -2,15 +2,20 @@
 using System.Globalization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
+using Volo.Abp;
 using Volo.Abp.DependencyInjection;
+using Volo.Abp.Localization;
 
 namespace Abp.Localization.Avalonia;
 
-public class LocalizationManager : INotifyPropertyChanged, ISingletonDependency
+public class LocalizationManager : ISingletonDependency, ILocalizationManager
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
+    public event PropertyChangedEventHandler? CurrentCultureChanged;
 
     private CultureInfo _currentCulture;
+
+    private Dictionary<string, Type> _resources = new();
 
     public CultureInfo CurrentCulture
     {
@@ -18,18 +23,20 @@ public class LocalizationManager : INotifyPropertyChanged, ISingletonDependency
         set
         {
             _currentCulture = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentCulture)));
+            CurrentCultureChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentCulture)));
         }
     }
 
 
-    public LocalizationManager(
-    )
+    public LocalizationManager(IOptions<AbpLocalizationOptions> options)
     {
+        _resources = options.Value.Resources.ToDictionary(v => v.Key,
+            v => (v.Value as LocalizationResource).ResourceType);
         CurrentCulture = CultureInfo.CurrentCulture;
     }
 
     public LocalizedString this[string resourceKey] => GetValue(resourceKey);
+    public LocalizedString this[string resourceKey, params object[] arguments] => GetValue(resourceKey, arguments);
 
     public void ChangeLanguage(string cultureName)
     {
@@ -43,31 +50,43 @@ public class LocalizationManager : INotifyPropertyChanged, ISingletonDependency
 
     private Dictionary<Type, IStringLocalizer> _localizers = new();
 
-    object _lock = new();
+    static readonly object Lock = new();
 
-    public IStringLocalizer GetResourceLocalizer<T>()
+    public IStringLocalizer GetResource<T>() => GetResource(typeof(T));
+
+    public IStringLocalizer GetResource(Type resourceType)
     {
-        lock (_lock)
+        lock (Lock)
         {
-            if (_localizers.ContainsKey(typeof(T)))
+            if (_localizers.ContainsKey(resourceType))
             {
-                return _localizers[typeof(T)];
+                return _localizers[resourceType];
             }
-            else
+            else 
             {
                 var localizer = LocalizationExtensions.Services.GetRequiredService<IStringLocalizerFactory>()
-                    .Create(typeof(T));
-                _localizers.Add(typeof(T), localizer);
+                    .Create(resourceType);
+                _localizers.Add(resourceType, localizer);
                 return localizer;
             }
         }
     }
 
+    public IStringLocalizer GetResource(string resourceName)
+    {
+        if (_resources.ContainsKey(resourceName))
+            return GetResource(_resources[resourceName]);
 
-    public LocalizedString GetValue(string resourceKey)
+        throw new Exception($"Resource {resourceName} not found");
+    }
+
+
+    private LocalizedString GetValue(string resourceKey, object[] arguments = null)
     {
         if (LocalizationExtensions.Localizer == null) return default;
-        var val = LocalizationExtensions.Localizer[resourceKey];
-        return val;
+
+        if (arguments is null)
+            return LocalizationExtensions.Localizer[resourceKey];
+        else return LocalizationExtensions.Localizer[resourceKey, arguments];
     }
 }

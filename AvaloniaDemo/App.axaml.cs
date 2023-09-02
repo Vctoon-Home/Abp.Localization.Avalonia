@@ -43,10 +43,6 @@ public partial class App : Application
         {
             desktop.MainWindow = Services.GetRequiredService<MainWindow>();
         }
-        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
-            singleViewPlatform.MainView = Services.GetRequiredService<MainView>();
-        }
 
         base.OnFrameworkInitializationCompleted();
 
