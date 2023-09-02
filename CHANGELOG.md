@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.5.0...v2.0.0) (2023-09-02)
+
+
+### Features
+
+* LocalizedExtension support resource ([46626e1](https://github.com/zyknow/Abp.Localization.Avalonia/commit/46626e11b27108ad30af7e2064b9bb8e8106b6d5))
+
+
+### BREAKING CHANGES
+
+* AddLocalizationManager no paras
+
 # [1.5.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.4.0...v1.5.0) (2023-08-31)
 
 
