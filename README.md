@@ -12,13 +12,13 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
 
 | Name                             | Version                                                                                                                                                                      | Download                                                                                                                                                                      |
 |----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Zyknow.Abp.Localization.Avalonia | [![Zyknow.Abp.Localization.Avalonia](https://img.shields.io/nuget/v/Zyknow.Abp.Localization.Avalonia.svg)](https://www.nuget.org/packages/Zyknow.Abp.Localization.Avalonia/) | [![Zyknow.Abp.Localization.Avalonia](https://img.shields.io/nuget/dt/Zyknow.Abp.Localization.Avalonia.svg)](https://www.nuget.org/packages/Zyknow.Abp.Localization.Avalonia/) |
+| Abp.Localization.Avalonia | [![Abp.Localization.Avalonia](https://img.shields.io/nuget/v/Abp.Localization.Avalonia.svg)](https://www.nuget.org/packages/Abp.Localization.Avalonia/) | [![Abp.Localization.Avalonia](https://img.shields.io/nuget/dt/Abp.Localization.Avalonia.svg)](https://www.nuget.org/packages/Abp.Localization.Avalonia/) |
 
 ## Usage
 
 1. Add Package Reference
     ```xml
-    <PackageReference Include="Zyknow.Abp.Localization.Avalonia" Version="1.2.2" />
+    <PackageReference Include="Abp.Localization.Avalonia" Version="1.2.2" />
     ```
 
 2. Add DependsOn and LocalizationManager
@@ -54,7 +54,7 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
     * Add using
 
        ```csharp
-       using Zyknow.Abp.Localization.Avalonia;
+       using Abp.Localization.Avalonia;
        ```
     * use
        ```csharp
