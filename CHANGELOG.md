@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.0...v2.0.1) (2023-09-06)
+
+
+### Bug Fixes
+
+* change package id ([3a26f57](https://github.com/zyknow/Abp.Localization.Avalonia/commit/3a26f577d5c3022d92d6ac2ba6fd50392f3fb121))
+
 # [2.0.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v1.5.0...v2.0.0) (2023-09-02)
 
 
