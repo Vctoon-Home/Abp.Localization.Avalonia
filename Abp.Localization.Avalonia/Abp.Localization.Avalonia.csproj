@@ -4,7 +4,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
-        <PackageId>Zyknow.Abp.Localization.Avalonia</PackageId>
+        <PackageId>Abp.Localization.Avalonia</PackageId>
         <Authors>Zyknow</Authors>
         <IncludeContentInPack>true</IncludeContentInPack>
         <IncludeBuildOutput>true</IncludeBuildOutput>
