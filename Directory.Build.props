@@ -4,6 +4,6 @@
         <AvaloniaVersion>11.0.4</AvaloniaVersion>
         <AbpVersion>7.4.0-rc.2</AbpVersion>
         <LangVersion>latest</LangVersion>
-        <Version>2.0.1</Version>
+        <Version>2.0.2</Version>
     </PropertyGroup>
 </Project>
