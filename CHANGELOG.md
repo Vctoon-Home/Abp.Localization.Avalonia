@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.5...v2.1.0) (2025-11-18)
+
+
+### Features
+
+* enhance LocalizedExtension with additional argument support and improved fallback handling ([90a081d](https://github.com/zyknow/Abp.Localization.Avalonia/commit/90a081d6edf1378d279521ac5115dcb944cc87d0))
+
 ## [2.0.5](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.4...v2.0.5) (2025-11-18)
 
 
