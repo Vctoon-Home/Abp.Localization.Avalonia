@@ -1,3 +1,10 @@
+## [2.0.4](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.3...v2.0.4) (2025-11-18)
+
+
+### Bug Fixes
+
+* update .NET Core version to 9.0.x in workflow ([03004a6](https://github.com/zyknow/Abp.Localization.Avalonia/commit/03004a68d51853728586d6dff32fbba2131016f0))
+
 ## [2.0.3](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.2...v2.0.3) (2025-11-18)
 
 
