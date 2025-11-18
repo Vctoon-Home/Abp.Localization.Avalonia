@@ -1,3 +1,10 @@
+## [2.0.5](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.4...v2.0.5) (2025-11-18)
+
+
+### Bug Fixes
+
+* update target framework and package versions to .NET 9.0 ([ef1666e](https://github.com/zyknow/Abp.Localization.Avalonia/commit/ef1666e2f7f802f72d8ee070dfe7dcefca4eddef))
+
 ## [2.0.4](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.3...v2.0.4) (2025-11-18)
 
 
