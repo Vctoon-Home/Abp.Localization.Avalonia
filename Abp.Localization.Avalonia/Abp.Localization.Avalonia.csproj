@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>net7.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
@@ -20,8 +20,8 @@
         <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)"/>
 <!--        <PackageReference Include="Avalonia.Markup.Xaml" Version="11.3.0"/>-->
         <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="$(AvaloniaVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.5"/>
-        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.5"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0"/>
+        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.0"/>
         <PackageReference Include="System.Reactive" Version="6.1.0"/>
         <PackageReference Include="Volo.Abp.Autofac" Version="$(AbpVersion)"/>
         <PackageReference Include="Volo.Abp.Localization" Version="$(AbpVersion)"/>
