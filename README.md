@@ -46,7 +46,12 @@ This project is help you to use Localization on Avalonia UI Framework in ABP Fra
        ```
     * use, more simple please see `AvaloniaDemo`
        ```xml
-       <TextBlock FontSize="20" Text="{L:Localized Welcome}"></TextBlock>
+        <TextBlock FontSize="20" Text="{L:Localized Submit}"></TextBlock>
+      
+        <TextBlock FontSize="20" Text="{L:Localized {x:Type localization:IdentityResource},UserName}"></TextBlock>
+
+        <TextBlock FontSize="20" Text="{L:Localized {x:Type localization:IdentityResource},Volo.Abp.Identity:UserNameNotFound,test}">
+        </TextBlock>
        ```
 
 4. Using in cs

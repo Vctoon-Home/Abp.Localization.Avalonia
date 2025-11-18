@@ -6,6 +6,7 @@
         xmlns:views="clr-namespace:AvaloniaDemo.Views"
         xmlns:components="clr-namespace:AvaloniaDemo.Components"
         xmlns:L="clr-namespace:Abp.Localization.Avalonia;assembly=Abp.Localization.Avalonia"
+        xmlns:localization="clr-namespace:Volo.Abp.Identity.Localization;assembly=Volo.Abp.Identity.Domain.Shared"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="AvaloniaDemo.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -18,15 +19,15 @@
 
         <TextBlock FontSize="20" Text="{Binding SaveText}"></TextBlock>
 
-
         <TextBlock FontSize="20" Text="{L:Localized Submit}"></TextBlock>
 
-        <TextBlock FontSize="20" Text="{L:Localized UserName,AbpAccount}"></TextBlock>
+        <TextBlock FontSize="20" Text="{L:Localized {x:Type localization:IdentityResource},UserName}"></TextBlock>
         <TextBlock FontSize="20" Text="{Binding DisplayName}"></TextBlock>
 
         <TextBlock FontSize="20" Text="{Binding IdentityName}"></TextBlock>
         <TextBlock FontSize="20" Text="{Binding UserDeletionConfirmationMessage}"></TextBlock>
-        <!-- <TextBlock FontSize="20" Text="{L:Localized Volo.Abp.Identity:UserNameNotFound,AbpIdentity,test}"></TextBlock> -->
+        <TextBlock FontSize="20" Text="{L:Localized {x:Type localization:IdentityResource},Volo.Abp.Identity:UserNameNotFound,test}">
+        </TextBlock>
 
     </StackPanel>
 

@@ -1,33 +1,41 @@
-﻿using System.ComponentModel;
-using System.Reactive;
+﻿using System;
+using System.ComponentModel;
 using Abp.Localization.Avalonia.Core;
 using Avalonia;
 using Avalonia.Data;
 using Avalonia.Metadata;
 using Microsoft.Extensions.Localization;
-using Volo.Abp.Localization;
 
 namespace Abp.Localization.Avalonia;
 
-public class LocalizedExtension : SubjectedObject<string>, IBinding
+public class LocalizedExtension : SubjectedObject<string>, INotifyPropertyChanged
 {
     static LocalizedExtension()
     {
-        TextProperty.Changed.AddClassHandler<LocalizedExtension, string>((s, e) =>
+        TextProperty.Changed.AddClassHandler<LocalizedExtension, string>((s, _) =>
         {
-            if (s is null)
-                return;
-
             var localizationManager = s._localizationManager;
-            if (localizationManager is null)
-                return;
-
-            s.OnNext(localizationManager[e.NewValue.Value]);
+            if (localizationManager is null) return;
+            s.SetLanguageValue(localizationManager);
         });
-    }
-
-    public LocalizedExtension() : base(string.Empty)
-    {
+        ResourceProperty.Changed.AddClassHandler<LocalizedExtension, string?>((s, _) =>
+        {
+            var localizationManager = s._localizationManager;
+            if (localizationManager is null) return;
+            s.SetLanguageValue(localizationManager);
+        });
+        ResourceTypeProperty.Changed.AddClassHandler<LocalizedExtension, Type?>((s, _) =>
+        {
+            var localizationManager = s._localizationManager;
+            if (localizationManager is null) return;
+            s.SetLanguageValue(localizationManager);
+        });
+        ArgumentsProperty.Changed.AddClassHandler<LocalizedExtension, object[]?>((s, _) =>
+        {
+            var localizationManager = s._localizationManager;
+            if (localizationManager is null) return;
+            s.SetLanguageValue(localizationManager);
+        });
     }
 
     public LocalizedExtension(string text) : base(string.Empty)
@@ -35,27 +43,36 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
         Text = text;
     }
 
-    public LocalizedExtension(string text, string resource) : base(string.Empty)
+    public LocalizedExtension(Type resource, string text) : base(string.Empty)
     {
         Text = text;
-        Resource = resource;
+        ResourceType = resource;
     }
-    //
-    // public LocalizedExtension(string text, string resource, params object[] arguments) : base(string.Empty)
-    // {
-    //     Text = text;
-    //     Resource = resource;
-    //     Arguments = arguments;
-    // }
+
+    public LocalizedExtension(string text, params object[] arguments) : base(string.Empty)
+    {
+        Text = text;
+        Arguments = arguments;
+    }
+
+    public LocalizedExtension(Type resource, string text, params object[] arguments) : base(string.Empty)
+    {
+        Text = text;
+        Arguments = arguments;
+        ResourceType = resource;
+    }
 
     public static readonly StyledProperty<string> TextProperty =
         AvaloniaProperty.Register<LocalizedExtension, string>(nameof(Text));
 
-    public static readonly StyledProperty<string?> CategoryProperty =
+    public static readonly StyledProperty<string?> ResourceProperty =
         AvaloniaProperty.Register<LocalizedExtension, string?>(nameof(Resource));
 
     public static readonly StyledProperty<object[]?> ArgumentsProperty =
         AvaloniaProperty.Register<LocalizedExtension, object[]?>(nameof(Arguments));
+
+    public static readonly StyledProperty<Type?> ResourceTypeProperty =
+        AvaloniaProperty.Register<LocalizedExtension, Type?>(nameof(ResourceType));
 
     [Content]
     [MarkupExtensionDefaultOption]
@@ -67,8 +84,8 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
 
     public string? Resource
     {
-        get => GetValue(CategoryProperty);
-        set => SetValue(CategoryProperty, value);
+        get => GetValue(ResourceProperty);
+        set => SetValue(ResourceProperty, value);
     }
 
     public object[]? Arguments
@@ -77,9 +94,29 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
         set => SetValue(ArgumentsProperty, value);
     }
 
+    public Type? ResourceType
+    {
+        get => GetValue(ResourceTypeProperty);
+        set => SetValue(ResourceTypeProperty, value);
+    }
+
     private ILocalizationManager? _localizationManager;
-    private IBinding bindingImplementation;
-    private IBinding _bindingImplementation;
+    private string _currentText = string.Empty;
+
+    public string CurrentText
+    {
+        get => _currentText;
+        private set
+        {
+            if (!string.Equals(_currentText, value, StringComparison.Ordinal))
+            {
+                _currentText = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(CurrentText)));
+            }
+        }
+    }
+
+    public new event PropertyChangedEventHandler? PropertyChanged;
 
     protected ILocalizationManager? LocalizationManager
     {
@@ -96,26 +133,18 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
         }
     }
 
-    public IBinding? ProvideValue(IServiceProvider serviceProvider)
+    public IBinding ProvideValue(IServiceProvider serviceProvider)
     {
         var localizationManager = LocalizationExtensions.LocalizationManager;
-        if (localizationManager is null)
-            return default;
-
         LocalizationManager = localizationManager;
         SetLanguageValue(localizationManager);
-        return this;
+        return new Binding
+        {
+            Source = this,
+            Path = nameof(CurrentText),
+            Mode = BindingMode.OneWay
+        };
     }
-
-    public InstancedBinding? Initiate(AvaloniaObject target, AvaloniaProperty? targetProperty, object? anchor = null,
-        bool enableDataValidation = false)
-    {
-        var observer = Observer.Create<object?>(t => { });
-
-        return InstancedBinding.TwoWay(this, observer);
-        ;
-    }
-
 
     void LanguageChanged(object? sender, PropertyChangedEventArgs e)
     {
@@ -126,25 +155,23 @@ public class LocalizedExtension : SubjectedObject<string>, IBinding
 
     void SetLanguageValue(ILocalizationManager localizationManager)
     {
-        IStringLocalizer stringLocalizer = null;
-
-        if (localizationManager is null)
-            return;
-
-        if (!Resource.IsNullOrEmpty())
-        {
+        IStringLocalizer? stringLocalizer = null;
+        if (ResourceType is not null)
+            stringLocalizer = localizationManager.GetResource(ResourceType);
+        else if (!Resource.IsNullOrEmpty())
             stringLocalizer = localizationManager.GetResource(Resource);
-            if (Arguments is not null)
-                OnNext(stringLocalizer[Text, Arguments]);
-            else
-                OnNext(stringLocalizer[Text]);
+
+        if (stringLocalizer is not null)
+        {
+            CurrentText = Arguments is not null
+                ? stringLocalizer[Text, Arguments].Value
+                : stringLocalizer[Text].Value;
         }
         else
         {
-            if (Arguments is not null)
-                OnNext(localizationManager[Text, Arguments]);
-            else
-                OnNext(localizationManager[Text]);
+            CurrentText = Arguments is not null
+                ? localizationManager[Text, Arguments].Value
+                : localizationManager[Text].Value;
         }
     }
 }
