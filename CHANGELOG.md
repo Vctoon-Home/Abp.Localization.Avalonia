@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.2...v2.0.3) (2025-11-18)
+
+
+### Bug Fixes
+
+* update package versions and localization handling ([3fdffab](https://github.com/zyknow/Abp.Localization.Avalonia/commit/3fdffab99c48a117a288ac73c3d643d14e9d685b))
+
 ## [2.0.2](https://github.com/zyknow/Abp.Localization.Avalonia/compare/v2.0.1...v2.0.2) (2023-09-06)
 
 
